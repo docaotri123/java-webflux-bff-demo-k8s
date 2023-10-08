@@ -1,0 +1,4 @@
+1. Build the Docker Image:
+docker build -t webflux-app .
+2. Run the Docker Container:
+docker run -p 8080:8080 webflux-app
