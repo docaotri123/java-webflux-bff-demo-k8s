@@ -31,28 +31,28 @@ pipeline {
             }
         }
 
-        stage('Test image') {
-            steps {
-                // Add your testing steps here
-                script {
-                    // Run tests if needed
-                    // For example: sh './mvnw test' for Maven
-                }
-            }
-        }
+//         stage('Test image') {
+//             steps {
+//                 // Add your testing steps here
+//                 script {
+//                     // Run tests if needed
+//                     // For example: sh './mvnw test' for Maven
+//                 }
+//             }
+//         }
 
-        stage('Push image to DockerHub') {
-            steps {
-                // Push Docker image to DockerHub
-                script {
-                    withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKER_HUB_USERNAME', passwordVariable: 'DOCKER_HUB_PASSWORD')]) {
-                        sh 'docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD'
-                        sh 'docker push $DOCKER_HUB_USERNAME/$IMAGE_NAME:$TAG'
-                    }
-                }
-            }
-        }
-    }
+//         stage('Push image to DockerHub') {
+//             steps {
+//                 // Push Docker image to DockerHub
+//                 script {
+//                     withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKER_HUB_USERNAME', passwordVariable: 'DOCKER_HUB_PASSWORD')]) {
+//                         sh 'docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD'
+//                         sh 'docker push $DOCKER_HUB_USERNAME/$IMAGE_NAME:$TAG'
+//                     }
+//                 }
+//             }
+//         }
+//     }
 
 //     post {
 //         success {
