@@ -31,19 +31,4 @@ node {
 //                 echo "triggering updatemanifestjob"
 //                 build job: 'updatemanifest', parameters: [string(name: 'DOCKERTAG', value: env.BUILD_NUMBER)]
 //         }
-   post {
-         success {
-             // Do something on success
-             echo 'Pipeline succeeded!'
-
-             // Additional steps like triggering deployments, notifications, etc.
-         }
-
-         failure {
-             // Do something on failure
-             echo 'Pipeline failed!'
-
-             // Additional steps like sending notifications, cleaning up, etc.
-         }
-     }
 }
