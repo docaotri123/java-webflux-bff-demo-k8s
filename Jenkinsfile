@@ -5,7 +5,7 @@ pipeline {
         // Define environment variables
         DOCKER_HUB_USERNAME = 'trido123'
         REPO_NAME = 'java-webflux-bff-demo-k8s'
-        IMAGE_NAME = 'webflux-app'
+        IMAGE_NAME = 'webfluxk8s'
         TAG = 'latest'
     }
 
