@@ -26,7 +26,7 @@ pipeline {
                     // sh './gradlew build'  // for Gradle
 
                     // Build Docker image
-                    sh 'docker build -t $DOCKER_HUB_USERNAME/$IMAGE_NAME:$TAG .'
+                    sh 'docker build -t $IMAGE_NAME:$TAG .'
                 }
             }
         }
