@@ -1,34 +1,72 @@
-node {
-    def app
+pipeline {
+    agent any
 
-    stage('Clone repository') {
-
-
-        checkout scm
+    environment {
+        // Define environment variables
+        DOCKER_HUB_USERNAME = 'trido123'
+        REPO_NAME = 'java-webflux-bff-demo-k8s'
+        IMAGE_NAME = 'java-webflux-bff-demo-k8s'
+        TAG = 'latest'
     }
 
-//     stage('Build image') {
-//
-//        app = docker.build("trido123/test:1")
-//     }
-//
-//     stage('Test image') {
-//
-//
-//         app.inside {
-//             sh 'echo "Tests passed"'
-//         }
-//     }
+    stages {
+        stage('Clone repository') {
+            steps {
+                // Clone your Git repository
+                git 'https://github.com/docaotri123/java-webflux-bff-demo-k8s.git'
+            }
+        }
 
-//     stage('Push image') {
+        stage('Build image') {
+            steps {
+                // Build Docker image using Maven or Gradle
+                script {
+                    sh './mvnw clean package'  // for Maven
+                    // or
+                    // sh './gradlew build'  // for Gradle
+
+                    // Build Docker image
+                    sh 'docker build -t $DOCKER_HUB_USERNAME/$IMAGE_NAME:$TAG .'
+                }
+            }
+        }
+
+        stage('Test image') {
+            steps {
+                // Add your testing steps here
+                script {
+                    // Run tests if needed
+                    // For example: sh './mvnw test' for Maven
+                }
+            }
+        }
+
+        stage('Push image to DockerHub') {
+            steps {
+                // Push Docker image to DockerHub
+                script {
+                    withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKER_HUB_USERNAME', passwordVariable: 'DOCKER_HUB_PASSWORD')]) {
+                        sh 'docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD'
+                        sh 'docker push $DOCKER_HUB_USERNAME/$IMAGE_NAME:$TAG'
+                    }
+                }
+            }
+        }
+    }
+
+//     post {
+//         success {
+//             // Do something on success
+//             echo 'Pipeline succeeded!'
 //
-//         docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
-//             app.push("${env.BUILD_NUMBER}")
+//             // Additional steps like triggering deployments, notifications, etc.
+//         }
+//
+//         failure {
+//             // Do something on failure
+//             echo 'Pipeline failed!'
+//
+//             // Additional steps like sending notifications, cleaning up, etc.
 //         }
 //     }
-
-//     stage('Trigger ManifestUpdate') {
-//                 echo "triggering updatemanifestjob"
-//                 build job: 'updatemanifest', parameters: [string(name: 'DOCKERTAG', value: env.BUILD_NUMBER)]
-//         }
 }
