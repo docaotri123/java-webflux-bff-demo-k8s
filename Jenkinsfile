@@ -21,7 +21,7 @@ pipeline {
             steps {
                 // Build Docker image using Maven or Gradle
                 script {
-                    sh './mvnw clean package'  // for Maven
+                    // sh './mvnw clean package'  // for Maven
                     // or
                     // sh './gradlew build'  // for Gradle
 
