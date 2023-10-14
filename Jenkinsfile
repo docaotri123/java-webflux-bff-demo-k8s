@@ -22,8 +22,8 @@ pipeline {
                 // Build Docker image using Maven or Gradle
                 script {
                     // Build Docker image
-                    echo '$IMAGE_NAME:$TAG'
-                    docker.build('$IMAGE_NAME:$TAG')
+                    echo "$IMAGE_NAME:$TAG"
+                    docker.build("$DOCKER_HUB_USERNAME/$IMAGE_NAME:$TAG")
                 }
             }
         }
