@@ -17,7 +17,7 @@ public class BookController implements BookApi {
     public Mono<ResponseEntity<SuccessResponseDTO>> getAllBook(ServerWebExchange exchange) {
         return Mono.just(
                 ResponseEntity.ok()
-                        .body(new SuccessResponseDTO(Collections.emptyList(), "ok"))
+                        .body(new SuccessResponseDTO(Collections.emptyList(), "ok 2"))
         );
     }
 }
